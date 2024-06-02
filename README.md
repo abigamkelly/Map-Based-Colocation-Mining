@@ -2,7 +2,7 @@
 This is the read me for the regional colocation framework code.
 There are three files needed to run the framework: distancce_threshold.ipynb, regional_colocation.ipynb, and c_functions.cpp.
 
-There are two data sets included: data1 and data2.  Both of these folders include 2 sub-regions with a shapefile.  The code is set to run using data1, but it can be changed to run using data2 by simply changing the file path as specified below.
+There is a data set included: data.  This folder includes 2 sub-regions with a shapefile.  Currently, the code is set to run with this data set.
 
 First, open the distance_threshold.ipynb.  The directory of the data files needs to be set in the second cell called 'directory'.  Once that variable has been set, run all of the cells.  The distance threshold will be produced and saved in the required_files directory as distance_threshold_parameter.txt.
 
