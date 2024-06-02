@@ -9,4 +9,4 @@ First, open the distance_threshold.ipynb.  The directory of the data files needs
 Second, open a terminal in the current directory and type the following command: g++ -O3 -shared -o c_functions.so -fPIC c_functions.cpp
 This compiles the cpp code and saves it as a shared library, so the other code has access to it.
 
-Third, open the regional_colocation.ipynb file.  Adjust the file paths as necessary in cell 2.  Run all the cells.  The prevalent patterns will be printed in the .ipynb file as well as saved in .txt files in the current directory.  Note: when running another data set, move the produced pattern files to another directory or delete them; they will be overwritten if left in the current directory.
+Third, open the regional_colocation.ipynb file.  Adjust the file paths and prevalence_threshold as necessary in cell 2.  Run all the cells.  The prevalent patterns will be printed in the .ipynb file as well as saved in .txt files in the current directory.  Note: when running another data set, move the produced pattern files to another directory or delete them; they will be overwritten if left in the current directory.
