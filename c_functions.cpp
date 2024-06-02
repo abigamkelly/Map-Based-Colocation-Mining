@@ -8,9 +8,10 @@
 #include <algorithm>
 
 extern "C" {
+    // Holds all information pertaining to the sub-regions
     class SubRegion {
     public:
-        int subregion_id;
+        int subregion_id;  // unique identifier
         std::map<std::string, std::vector<int>> featureInfo;
         std::map<int, std::vector<int>> star_neighbors;
         std::vector<std::vector<std::string>> size2_patterns;
@@ -20,7 +21,8 @@ extern "C" {
         SubRegion(int number) {
             subregion_id = number;
         }
-        
+
+        // get the featureInfo
         void read_featureInfo() {
             std::ifstream featureInfo_file("required_files/featureInfo/featureInfo" + std::to_string(this->subregion_id) + ".csv");
         
@@ -51,7 +53,8 @@ extern "C" {
 
             featureInfo_file.close();
         }
-        
+
+        // get the star_neighbors
         void read_star_neighbors() {
             // read the star_neighbors from a csv file
             std::ifstream star_neighbors_file("required_files/starNeighbors/starNeighbors" + 
@@ -86,7 +89,8 @@ extern "C" {
 
             star_neighbors_file.close();
         }
-        
+
+        // generate the size 2 candidate patterns
         std::vector<std::vector<std::string>> generate_size2_combos() {
             std::vector<std::string> features;
             for (const auto &entry : this->featureInfo) {
@@ -102,13 +106,15 @@ extern "C" {
 
             return size2_candidatePatterns;
         }
-        
+
+        // log(n) search that finds neighbors within a specific start and end range
         std::vector<int> findNeighborsInRange(const std::vector<int>& arr, int x, int y) {
             auto start_it = std::lower_bound(arr.begin(), arr.end(), x);
             auto end_it = std::upper_bound(arr.begin(), arr.end(), y);
             return std::vector<int>(start_it, end_it);
         }
-        
+
+        // find the degree 2 prevalent patterns
         std::vector<std::vector<std::string>> degree2Processing(
             std::vector<std::vector<std::string>> candidatePatterns, int candidatePatterns_size, 
             double prevalence_threshold, int number_subregions) {   
@@ -149,13 +155,15 @@ extern "C" {
                         }
                     }
                 }
-                
+
+                // calculate the participation rations
                 double pr_first_feature = static_cast<double>(hashmap[coloc_key][first_feature].size()) /
                     featureInfo[first_feature][0];
                 double pr_second_feature = static_cast<double>(hashmap[coloc_key][second_feature].size()) /
                     featureInfo[second_feature][0];
                 double PI = 0.0;
 
+                // calculate the participation index
                 if (pr_first_feature < pr_second_feature) {
                     PI = pr_first_feature;
                 } else {
@@ -178,6 +186,7 @@ extern "C" {
             return size2_patterns;
         }
 
+        // generates the combinations for the candidate patterns with degree > 2
         void generateCombinations(const std::vector<std::string>& features, int degree, 
                                   std::vector<std::vector<std::string>>& result, 
                                   std::vector<std::string>& current, int start) {
@@ -192,7 +201,7 @@ extern "C" {
             }
         }
 
-        // Function to check if all (degree-1)-subpatterns of a pattern are in the prevalent patterns
+        // check if all (degree-1)-subpatterns of a pattern are in the prevalent patterns
         bool allSubpatternsInPrevalent(const std::vector<std::string>& pattern, 
                                        const std::set<std::vector<std::string>>& prevalentPatterns, 
                                        int degree) {
@@ -231,7 +240,8 @@ extern "C" {
 
             return _candidatePatterns;
         }
-        
+
+        // find prevalent patterns for degree > 2
         std::vector<std::vector<std::string>> colocationGeneral(
             std::vector<std::vector<std::string>> candidatePatterns, int candidatePatterns_size, 
                            double prevalence_threshold, int degree, int number_subregions) {
@@ -338,10 +348,11 @@ extern "C" {
         }
     };
     std::vector<SubRegion> subregions;
-    
+
+    // this class holds all information pertaining to the border region
     class Border {
     public:
-        int border_id;
+        int border_id;  // unique identifier
         std::map<std::string, std::vector<int>> featureInfo;
         std::map<int, std::vector<int>> star_neighbors;
         std::vector<std::vector<std::string>> size2_patterns;
@@ -508,7 +519,8 @@ extern "C" {
         }
     };
     std::vector<Border> borders;
-    
+
+    // this class holds all information pertaining to the entire region
     class Region {
     public:
         std::map<std::vector<std::string>, std::map<std::vector<int>, std::vector<int>>> instance_table;
@@ -770,7 +782,8 @@ extern "C" {
         }
     };
     Region region;
-    
+
+    // processing for all the sub-regions
     void subregion_main(int number_subregions, double prevalence_threshold) {
         for (int i = 0; i < number_subregions; i++) {
             subregions.push_back(SubRegion(i));
@@ -802,7 +815,8 @@ extern "C" {
             }
         }
     }
-    
+
+    // processing for the border region
     void border_main(int number_borders, double prevalence_threshold) {
         for (int i = 0; i < number_borders; i++) {
             borders.push_back(Border(i));
@@ -819,7 +833,7 @@ extern "C" {
                                              prevalence_threshold);
         } 
     } 
-    
+
     void update_border_info(int* ids, int ids_size, int i) {
         // update the border hashmap so that it has the original IDS not the indicies
         std::map<std::vector<std::string>, std::map<std::string, std::set<int>>> temp_hash;
@@ -894,7 +908,8 @@ extern "C" {
         }
         borders[i].star_neighbors = temp_star_neighbors;        
     }
-    
+
+    // combine the hashmaps of the subregions and border region
     void combine_hashmaps(int number_subregions, int number_borders) {
         std::set<std::vector<std::string>> keys_needed;
         
@@ -950,7 +965,8 @@ extern "C" {
             }
         }  
     }
-    
+
+    // combine the instance tables of the subregions and the border region
     void combine_instance_tables(int number_subregions, int number_borders) {
         std::set<std::vector<std::string>> keys_needed;
         
@@ -1016,7 +1032,8 @@ extern "C" {
             }
         }
     }
-    
+
+    // processing for the entire region
     void region_main(int number_subregions, double prevalence_threshold, char** features_ptr, int features_size) {
         std::vector<std::string> features(features_ptr, features_ptr + features_size);
         std::vector<std::vector<std::string>> size2_candidatePatterns = region.generate_size2_combos();
