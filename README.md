@@ -1,5 +1,5 @@
 # Map-Based-Colocation-Mining
-There are three files needed to run the framework: distancce_threshold.ipynb, regional_colocation.ipynb, and c_functions.cpp.
+There are three files needed to run the framework: distance_threshold.ipynb, regional_colocation.ipynb, and c_functions.cpp.
 
 There is a data set included: data.  This folder includes 2 sub-regions with a shapefile.  Currently, the code is set to run with this data set.
 
