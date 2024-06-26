@@ -1,13 +1,21 @@
 # Map-Based-Colocation-Mining
-There are three files needed to run the framework: distance_threshold.ipynb, regional_colocation.ipynb, and c_functions.cpp.
+This github includes the code for our map-based regional colocation mining framework.  The following files are included:
+* c_functions.cpp: c++ functions used in the regional colocation framework
+* distance_threshold.ipynb: python code that estimates the optimal spatial neighborhood relationship constraint
+* regional_colocation.ipynb: python code that calls the c++ code in c_functions.cpp to perform the colocation mining
+* required_files: folder that holds the intermediate data
+* data: folder that holds a sample data set and a shapefile
 
-There is a data set included: data.  This folder includes 2 sub-regions with a shapefile.  Currently, the code is set to run with this data set.
+### How to Configure
+1. Open the files in the required_files folder and ensure that all the folders are empty
+2. Open distance_threshold.ipynb
+3. If running the code using the provided data set, ensure that the 1st line in the 2nd cell is set to: directory = 'data'.  If using a different data set, set the variable named directory equal to the respective path.
+4. Open regional_colocation.ipynb
+5. The 6th line in the 2nd cell is a user-defined prevalence threshold.  This variable can be changed to include more or less prevalent patterns
+6. If running the code using the provided data set, ensure that the 8th line in the 2nd cell is set to: shapefile_path = 'data/shapefile' and that the 9th line in the 2nd cell is set to: directory_path = 'data'.  If using a different data set, set the variable named shapefile_path to the path of the shapefile and the variable named directory_path to the path of the data set
 
-First, open the distance_threshold.ipynb.  The directory of the data files needs to be set in the second cell called 'directory'.  Once that variable has been set, run all of the cells.  The distance threshold will be produced and saved in the required_files directory as distance_threshold_parameter.txt.
-
-Second, open a terminal in the current directory and type the following command: g++ -O3 -shared -o c_functions.so -fPIC c_functions.cpp.
-This compiles the cpp code and saves it as a shared library, so the other code has access to it.
-
-Third, open the regional_colocation.ipynb file.  Adjust the file paths and prevalence_threshold as necessary in cell 2.  Run all the cells.  The prevalent patterns will be printed in the .ipynb file as well as saved in .txt files in the current directory.  Note: when running another data set, move the produced pattern files to another directory or delete them; they will be overwritten if left in the current directory.
-
-The required_files folder holds the .txt file with the distance threshold parameter in it as well as other intermediate data shared amount the cpp and Python code such as the star neighbors and info pertaining to the features in each region.
+### How to Compile and Run
+1. Change your current directory to the directory containing c_functions.cpp
+2. Open distance_threshold.ipynb and run all the cells
+3. Run the following command in the terminal: **g++ -O3 -shared -o c_functions.so -fPIC c_functions.cpp**
+4. Open regional_colocation.ipynb and run all the cells
