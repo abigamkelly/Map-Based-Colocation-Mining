@@ -27,24 +27,20 @@ extern "C" {
             std::ifstream featureInfo_file("required_files/featureInfo/featureInfo" + std::to_string(this->subregion_id) + ".csv");
         
             if (!featureInfo_file.is_open()) {
-                std::cerr << "Error opening file" << std::endl;
+                std::cerr << "Error opening file!" << std::endl;
             }
 
             std::string line;
-            std::getline(featureInfo_file, line);  // Skip the first row (header)
+            std::getline(featureInfo_file, line);
 
             while (std::getline(featureInfo_file, line)) {
                 std::istringstream lineStream(line);
                 std::string cell;
                 std::string key;
                 std::vector<int> values;
-
-                // Read the first cell (key)
                 if (std::getline(lineStream, cell, ',')) {
-                    key = cell; // Assuming the key is a single character
+                    key = cell;
                 }
-
-                // Read the rest of the cells (values)
                 while (std::getline(lineStream, cell, ',')) {
                     values.push_back(std::stoi(cell));
                 }
@@ -56,37 +52,30 @@ extern "C" {
 
         // get the star_neighbors
         void read_star_neighbors() {
-            // read the star_neighbors from a csv file
             std::ifstream star_neighbors_file("required_files/starNeighbors/starNeighbors" + 
                                               std::to_string(this->subregion_id) + ".csv");
 
             if (!star_neighbors_file.is_open()) {
                 std::cerr << "Error opening file" << std::endl;
             }
+            std::string line;
+            std::getline(star_neighbors_file, line);
 
-            std::string line1;
-            std::getline(star_neighbors_file, line1);  // Skip the first row (header)
-
-            while (std::getline(star_neighbors_file, line1)) {
-                std::stringstream ss(line1);
+            while (std::getline(star_neighbors_file, line)) {
+                std::stringstream ss(line);
                 int key;
-                // Skip leading whitespace characters
                 ss >> std::ws;
                 ss >> key;
-                ss.ignore(); // Ignore the comma
+                ss.ignore();
 
-                // Read the list of ints
                 int value;
                 std::vector<int> values;
                 while (ss >> value) {
                     values.push_back(value);
-                    ss.ignore(); // Ignore the space
+                    ss.ignore();
                 }
-
-                // Store the data in the map
                 star_neighbors[key] = values;
             }
-
             star_neighbors_file.close();
         }
 
@@ -103,7 +92,6 @@ extern "C" {
                     size2_candidatePatterns.push_back({features[i], features[j]});
                 }
             }
-
             return size2_candidatePatterns;
         }
 
