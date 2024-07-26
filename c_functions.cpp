@@ -1025,11 +1025,11 @@ extern "C" {
     void region_main(int number_subregions, double prevalence_threshold, char** features_ptr, int features_size) {
         std::vector<std::string> features(features_ptr, features_ptr + features_size);
         std::vector<std::vector<std::string>> size2_candidatePatterns = region.generate_size2_combos();
-        std::vector<std::vector<std::string>> prevalentPatterns = region.degree2Processing(size2_candidatePatterns, 
+        std::vector<std::vector<std::string>> prevalent_patterns = region.degree2Processing(size2_candidatePatterns, 
                                                                 size2_candidatePatterns.size(), prevalence_threshold,
                                                                                            number_subregions);
         int degree = 3;
-        std::vector<std::vector<std::string>> candidatePatterns = region.getCandidatePatterns(prevalentPatterns,
+        std::vector<std::vector<std::string>> candidatePatterns = region.getCandidatePatterns(prevalent_patterns,
                                                                                               degree, features);
         while (!candidatePatterns.empty()) {
             std::vector<std::vector<std::string>> prevalent_patterns = region.colocationGeneral(candidatePatterns, 
@@ -1039,7 +1039,7 @@ extern "C" {
             if (prevalent_patterns.size() == 0) {
                 break;
             }
-            candidatePatterns = region.getCandidatePatterns(prevalentPatterns, degree, features);
+            candidatePatterns = region.getCandidatePatterns(prevalent_patterns, degree, features);
         }
     }
 }
