@@ -21,7 +21,7 @@ This github includes the code for our map-based regional colocation mining frame
 5. In the 5th cell, set the distance threshold and prevalence threshold variables
 6. In the 5th cell, set the shapefile path and directory path variables to the correct path of the region of choice
 
-### How to Compile and Run (for regular)
+### How to Compile and Run (for regional)
 1. Change your current directory to the Code directory
 2. Run the following command in the terimal to compile the c++ code: **make**
 3. Open regional_colocation.ipynb and run all the cells
