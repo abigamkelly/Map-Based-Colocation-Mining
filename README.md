@@ -1,21 +1,38 @@
 # Map-Based-Colocation-Mining
 This github includes the code for our map-based regional colocation mining framework.  The following files are included:
-* c_functions.cpp: c++ functions used in the regional colocation framework
-* distance_threshold.ipynb: python code that estimates the optimal spatial neighborhood relationship constraint
-* regional_colocation.ipynb: python code that calls the c++ code in c_functions.cpp to perform the colocation mining
-* required_files: folder that holds the intermediate data
-* data: folder that holds a sample data set and a shapefile
+* regional: this folder holds the map-based regional colocation framework code and files
+    * Code: this folder holds the code for the map-based regional framework
+        * functions.cpp: c++ functions used in the regional colcoation framework
+        * regional_colocation.ipynb: python code that calls the c++ code in functions.cpp to perform the colocation mining
+        * makefile: used to compile the c++ code
+    * Data: this folder holds the real-world data sets
+    * IntermediateData: this folder holds border region data passed from the python code to the c++ code
+* regular: this folder holds the map-based colocation code and files used on synthetic testing
+    * Code: this folder holds the map-based colocation mining code
+        * functions.cpp: c++ code for the colocation mining
+        * makefile: used to compile and run the code
+    * Data: this folder holds the synthetic data sets
 
-### How to Configure
-1. Open the files in the required_files folder and ensure that all the folders are empty
-2. Open distance_threshold.ipynb
-3. If running the code using the provided data set, ensure that the 1st line in the 2nd cell is set to: directory = 'data'.  If using a different data set, set the variable named directory equal to the respective path.
+### How to Configure (for regional)
+1. Open functions.cpp
+2. On lines 85 and 86, set the distance threshold and prevalence threshold variables
+3. On line 509, set the input file path variable to the correct file path holding the csv files for the region of choice
 4. Open regional_colocation.ipynb
-5. The 6th line in the 2nd cell is a user-defined prevalence threshold.  This variable can be changed to include more or less prevalent patterns
-6. If running the code using the provided data set, ensure that the 8th line in the 2nd cell is set to: shapefile_path = 'data/shapefile' and that the 9th line in the 2nd cell is set to: directory_path = 'data'.  If using a different data set, set the variable named shapefile_path to the path of the shapefile and the variable named directory_path to the path of the data set
+5. In the 5th cell, set the distance threshold and prevalence threshold variables
+6. In the 5th cell, set the shapefile path and directory path variables to the correct path of the region of choice
 
-### How to Compile and Run
-1. Change your current directory to the directory containing c_functions.cpp
-2. Open distance_threshold.ipynb and run all the cells
-3. Run the following command in the terminal: **g++ -O2 -shared -o c_functions.so -fPIC c_functions.cpp**
-4. Open regional_colocation.ipynb and run all the cells
+### How to Compile and Run (for regular)
+1. Change your current directory to the Code directory
+2. Run the following command in the terimal to compile the c++ code: **make**
+3. Open regional_colocation.ipynb and run all the cells
+
+### How to Configure (for regular)
+1. Open functions.cpp 
+2. On lines 56 and 60, set the distance threshold and prevalence threshold variables
+3. On line 466, set the input file variable to the correct file path of the synthetic data set of choice
+
+### How to Compile and Run (for regular)
+1. Change your current directory to the Code directory
+2. Run the following command in the terminal to compile the code: **make**
+3. Run the following command in the terminal to run the code: **make run**
+
