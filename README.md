@@ -34,5 +34,5 @@ This github includes the code for our map-based regional colocation mining frame
 ### How to Compile and Run (for regular)
 1. Change your current directory to the Code directory
 2. Run the following command in the terminal to compile the code: **make**
-3. Run the following command in the terminal to run the code: **make run**
+3. Open regional_colocation.ipynb and run all the cells
 
