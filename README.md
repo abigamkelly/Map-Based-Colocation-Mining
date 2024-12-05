@@ -1,12 +1,11 @@
 # Map-Based-Colocation-Mining
 This github includes the code for our map-based regional colocation mining framework.  The following files are included:
-* regional: this folder holds the map-based regional colocation framework code and files
-    * Code: this folder holds the code for the map-based regional framework
-        * functions.cpp: c++ functions used in the regional colcoation framework
-        * regional_colocation.ipynb: python code that calls the c++ code in functions.cpp to perform the colocation mining
-        * makefile: used to compile the c++ code
-    * Data: this folder holds the real-world data sets
-    * IntermediateData: this folder holds border region data passed from the python code to the c++ code
+ * Code: this folder holds the code for the map-based regional framework
+     * functions.cpp: c++ functions used in the regional colcoation framework
+     * regional_colocation.ipynb: python code that calls the c++ code in functions.cpp to perform the colocation mining
+     * makefile: used to compile the c++ code
+ * Data: this folder holds the real-world data sets
+ * IntermediateData: this folder holds border region data passed from the python code to the c++ code
 
 
 ### How to Configure
